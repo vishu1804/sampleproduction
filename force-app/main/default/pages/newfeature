@@ -1,0 +1,6 @@
+<apex:page >
+    <!-- Begin Default Content REMOVE THIS -->
+    <h1>newest feature to add content</h1>
+    This is your new Apex Page: HelloWorld
+    <!-- End Default Content REMOVE THIS -->
+</apex:page>
