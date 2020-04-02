@@ -1,0 +1,39 @@
+<aura:component implements="flexipage:availableForAllPageTypes">
+    <div class="outsideContainer">
+    <p class="slds-text-heading_medium openingMessage">
+        Welcome to the Dev Hub Trial! We recommend the following steps to get started:
+	</p>
+    <table class="slds-text-body_regular">
+        <tr>
+        	<td class="iconColumn">
+                <lightning:icon iconName="action:check" size="small"/>
+            </td>
+            <td>Take the <a href="https://trailhead.salesforce.com/trails/sfdx_get_started">Getting Started with Salesforce DX</a> Trail</td>
+        </tr>
+        <tr>
+        	<td class="iconColumn">
+                <lightning:icon iconName="action:check" size="small"/>
+            </td>
+            <td>Download the <a href="https://developer.salesforce.com/tools/sfdxcli">Salesforce CLI</a></td>
+        </tr>
+        <tr>
+        	<td class="iconColumn">
+                <lightning:icon iconName="action:check" size="small"/>
+            </td>
+            <td>Play with the <a href="https://github.com/forcedotcom/sfdx-dreamhouse">Dreamhouse sample application</a></td>
+        </tr>
+        <tr>
+        	<td class="iconColumn">
+                <lightning:icon iconName="action:check" size="small"/>
+            </td>
+            <td>Join the <a href="https://success.salesforce.com/_ui/core/chatter/groups/GroupProfilePage?g=0F92w000000gKFQ">Salesforce DX Trailblazer community</a></td>
+        </tr>
+        <tr>
+        	<td class="iconColumn">
+                <lightning:icon iconName="action:check" size="small"/>
+            </td>
+            <td>Watch <a href="https://www.youtube.com/playlist?list=PLJC5QQjmffkTxVuCSYXTsqzcfFmYH44Lu">some videos</a> about Salesforce DX</td>
+        </tr>
+    </table>
+    </div>
+</aura:component>

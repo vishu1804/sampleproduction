@@ -1,0 +1,16 @@
+.THIS {
+    background-color: white;
+    padding: .75rem;
+    border: 1px rgb(236, 235, 234) solid;
+    border-radius: .25rem;
+}
+.THIS .outsideContainer {
+    padding: 10px;
+}
+.THIS .openingMessage {
+    padding-bottom: 5px;
+}
+.THIS .iconColumn {
+    width: 40px;
+    padding: 7px;
+}
