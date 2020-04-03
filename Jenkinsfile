@@ -107,7 +107,76 @@ node {
                 error 'Salesforce test scratch org deletion failed.'
             }
         }
-    }
+
+
+        // -------------------------------------------------------------------------
+        // Create package version.
+        // -------------------------------------------------------------------------
+
+        stage('Create Package Version') {
+           
+                    if (isUnix()) {
+                        output = sh returnStdout: true, script: "${toolbelt}\\sfdx force:package:version:create --package ${PACKAGE_NAME} --installationkeybypass --wait 10 --json --targetdevhubusername DevHub"
+                    } else {
+                        output = bat(returnStdout: true, script: "${toolbelt}\\sfdx force:package:version:create --package ${PACKAGE_NAME} --installationkeybypass --wait 10 --json --targetdevhubusername DevHub").trim()
+                        output = output.readLines().drop(1).join(" ")
+            }
+
+
+            // Wait 5 minutes for package replication.
+            sleep 300
+            
+            try{
+               // echo "Before json call"
+             def jsonSlurper = new JsonSlurperClassic()
+            def response = jsonSlurper.parseText(output)
+//echo "Before Package creation"
+            PACKAGE_VERSION = response.result.SubscriberPackageVersionId
+            response = null
+
+          //  echo ${PACKAGE_VERSION}
+            }
+            catch(err)
+            {
+                echo $err
+                
+            }
+		    
+          }
+        // -------------------------------------------------------------------------
+        // Authenticate Sandbox org to install package to.
+        // -------------------------------------------------------------------------
+
+        stage('Staging - Sandbox Org') {
+          
+            echo "Authenticate Sandbox Org to install package to"
+            rc = command "${toolbelt}\\sfdx force:auth:sfdxurl:store -f package-sfdx-project.json -s -a myDevelopOrg"
+            //rc = command "${toolbelt}\\sfdx force:org:create --targetdevhubusername DevHub --setdefaultusername --definitionfile config/project-scratch-def.json --setalias installorg --wait 10 --durationdays 1"
+            if (rc != 0) {
+                error 'Salesforce package install scratch org creation failed.'
+            }
+           
+        }
+
+
+       
+
+        // -------------------------------------------------------------------------
+        // Install package in Sandbox org.
+        // -------------------------------------------------------------------------
+
+        stage('Install Package In Sandbox Org') {
+            
+            rc = command "${toolbelt}\\sfdx force:package:install --targetusername myDevelopOrg --package ${PACKAGE_VERSION} --wait 10 --publishwait 10 --noprompt --json"
+            // rc = command "${toolbelt}\\sfdx force:package:install --package ${PACKAGE_VERSION} --targetusername installorg --wait 10"
+            if (rc != 0) {
+                error 'Salesforce package install failed.'
+            }
+            }
+        }    
+
+    
+    
 }
 
 def command(script) {
