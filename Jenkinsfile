@@ -150,7 +150,7 @@ node {
         stage('Staging - Sandbox Org') {
           
             echo "Authenticate Sandbox Org to install package to"
-            rc = command "${toolbelt}\\sfdx force:auth:sfdxurl:store -f package-sfdx-project.json -s -a myDevelopOrg"
+            rc = command "${toolbelt}\\sfdx force:auth:sfdxurl:store -f sfdx-project.json -s -a myDevelopOrg"
             //rc = command "${toolbelt}\\sfdx force:org:create --targetdevhubusername DevHub --setdefaultusername --definitionfile config/project-scratch-def.json --setalias installorg --wait 10 --durationdays 1"
             if (rc != 0) {
                 error 'Salesforce package install scratch org creation failed.'
